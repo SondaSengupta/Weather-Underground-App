@@ -30,15 +30,16 @@ function forecastFunction(data){
 		$ul.appendChild($img);
 		
  	  	var $li = document.createElement("li");
-		$li.innerHTML = weatherData[i].title + " with " + weatherData[i].fcttext
+		$li.innerHTML = weatherData[i].title + " with " + weatherData[i].fcttext;
 		$ul.appendChild($li);
-		i = i + 1
+		i = i + 1;
 	}	
 }  
 
-function positionSuccess(){
-	var positionCoordinates = pos.coords;
-	var url = 'http://api.wunderground.com/api/c435be30cca8cd2e/forecast10day/q/' + positionCoordinates +'.json';
+function positionSuccess(position){
+	var latitude = position.coords.latitude
+	var longitude = position.coords.longitude
+	var url = 'http://api.wunderground.com/api/c435be30cca8cd2e/forecast10day/q/' + latitude + ','+ longitude +'.json';
 	getJSONP(url, 'forecastFunction');
 	var $ul = document.getElementById("dayList");
 	$ul.innerHTML = "";
