@@ -2,11 +2,16 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 	document.getElementById('submit').addEventListener("click", function(){
-		var url = 'http://api.wunderground.com/api/c435be30cca8cd2e/forecast10day/q/37217.json';
+		var zipcodeInput = document.forms[0].zipcodeInput.value;
+		var url = 'http://api.wunderground.com/api/c435be30cca8cd2e/forecast10day/q/' + zipcodeInput +'.json';
 		getJSONP(url, 'forecastFunction');
-
-
+		var $ul = document.getElementById("dayList");
+		$ul.innerHTML = "";
 		
+	});
+
+	document.getElementById('currentLocation').addEventListener("click", function(){
+		navigator.geolocation.getCurrentPosition(positionSuccess, positionFailure);
 	});
 });
 
@@ -19,7 +24,7 @@ function getJSONP(url, cbName){
 function forecastFunction(data){
 	var weatherData = data.forecast.txt_forecast.forecastday
 	for (var i = 0; i < 10; i++){
-		var $ul = document.getElementById("itemColumn");
+		var $ul = document.getElementById("dayList");
 		var $img = document.createElement('img');
 		$img.setAttribute('src', weatherData[i].icon_url);
 		$ul.appendChild($img);
@@ -28,8 +33,17 @@ function forecastFunction(data){
 		$li.innerHTML = weatherData[i].title + " with " + weatherData[i].fcttext
 		$ul.appendChild($li);
 		i = i + 1
-	}
-	
-}   	
+	}	
+}  
 
+function positionSuccess(){
+	var positionCoordinates = pos.coords;
+	var url = 'http://api.wunderground.com/api/c435be30cca8cd2e/forecast10day/q/' + positionCoordinates +'.json';
+	getJSONP(url, 'forecastFunction');
+	var $ul = document.getElementById("dayList");
+	$ul.innerHTML = "";
+}
 
+function positionFailure(){
+	alert("Unable to recieve location. Please type zipcode instead.");
+}
