@@ -22,18 +22,24 @@ function getJSONP(url, cbName){
 }
 
 function forecastFunction(data){
-	var weatherData = data.forecast.txt_forecast.forecastday
-	for (var i = 0; i < 10; i++){
-		var $ul = document.getElementById("dayList");
-		var $img = document.createElement('img');
-		$img.setAttribute('src', weatherData[i].icon_url);
-		$ul.appendChild($img);
+	if (data.response.error){
+		alert("Invalid Zipcode. Please reinput.");
+	} else {
+		var weatherData = data.forecast.txt_forecast.forecastday
+
+		for (var i = 0; i < 10; i++){
+			var $ul = document.getElementById("dayList");
+			var $img = document.createElement('img');
+			$img.setAttribute('src', weatherData[i].icon_url);
+			$ul.appendChild($img);
+			
+	 	  	var $li = document.createElement("li");
+			$li.innerHTML = weatherData[i].title + " with " + weatherData[i].fcttext;
+			$ul.appendChild($li);
+			i = i + 1;
+		}
 		
- 	  	var $li = document.createElement("li");
-		$li.innerHTML = weatherData[i].title + " with " + weatherData[i].fcttext;
-		$ul.appendChild($li);
-		i = i + 1;
-	}	
+	}
 }  
 
 function positionSuccess(position){
