@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 	document.getElementById('submit').addEventListener("click", function(){
 		var zipcodeInput = document.forms[0].zipcodeInput.value;
-		var url = 'http://api.wunderground.com/api/c435be30cca8cd2e/forecast10day/q/' + zipcodeInput +'.json';
+		var url = 'http://api.wunderground.com/api/c435be30cca8cd2e/forecast10day/geolookup/q/' + zipcodeInput +'.json';
 		getJSONP(url, 'forecastFunction');
 		var $ul = document.getElementById("dayList");
 		$ul.innerHTML = "";
@@ -26,8 +26,11 @@ function forecastFunction(data){
 		alert("Invalid Zipcode. Please reinput.");
 	} else {
 		var weatherData = data.forecast.txt_forecast.forecastday
+		var $h3 = document.getElementById("city");
+		$h3.innerHTML = data.location;
 
 		for (var i = 0; i < 10; i++){
+			
 			var $ul = document.getElementById("dayList");
 			var $img = document.createElement('img');
 			$img.setAttribute('src', weatherData[i].icon_url);
@@ -37,8 +40,7 @@ function forecastFunction(data){
 			$li.innerHTML = weatherData[i].title + " with " + weatherData[i].fcttext;
 			$ul.appendChild($li);
 			i = i + 1;
-		}
-		
+		}		
 	}
 }  
 
