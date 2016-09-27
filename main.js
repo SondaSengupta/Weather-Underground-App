@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function(){
 		getJSONP(url, 'forecastFunction');
 		var $ul = document.getElementById("dayList");
 		$ul.innerHTML = "";
-		
+
 	});
 
 	document.getElementById('currentLocation').addEventListener("click", function(){
@@ -30,19 +30,19 @@ function forecastFunction(data){
 		$h3.innerHTML = data.location;
 
 		for (var i = 0; i < 10; i++){
-			
+
 			var $ul = document.getElementById("dayList");
 			var $img = document.createElement('img');
 			$img.setAttribute('src', weatherData[i].icon_url);
 			$ul.appendChild($img);
-			
-	 	  	var $li = document.createElement("li");
+
+	 	  var $li = document.createElement("li");
 			$li.innerHTML = weatherData[i].title + " with " + weatherData[i].fcttext;
 			$ul.appendChild($li);
 			i = i + 1;
-		}		
+		}
 	}
-}  
+}
 
 function positionSuccess(position){
 	var latitude = position.coords.latitude
