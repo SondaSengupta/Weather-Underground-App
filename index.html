@@ -5,23 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>The Weather</title>
-
+    <link rel="stylesheet" href="main.css" media="screen" title="no title">
   </head>
   <body>
 
-    <div class="container">
-        <h1>What's the Weather?</h1>
+    <div class="wrapper">
+      <h1>What's the Weather?</h1>
+      <h3> Please enter your Zipcode </h3>
+      <form action="" id="zipcodeButton">
+        <input class="form-control" type="number" value="37217" id="zipcodeInput"/>
+        <input class="btn topmargin" type="button" id="submit" value="Submit"/>
+        <input class="btn topmargin" type="button" value="Use Your Current Location" id="currentLocation" />
+      </form>
+      <h3 id="city"></h3>
+      <ul id="dayList"> </ul>
     </div>
-
-    <h3> Please enter your Zipcode </h3>
-    <form action="" id="zipcodeButton">
-      <input type="number" value="37217" id="zipcodeInput"/>
-      <input type="button" id="submit" value="Submit"/>
-      <input type="button" value="Use Your Current Location" id="currentLocation" />
-    </form>
-    <h3 id="city"></h3>
-    <ul id="dayList">
-    </ul>
 
     <script src="main.js"></script>
   </body>
